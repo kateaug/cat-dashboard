@@ -22,30 +22,36 @@ export default function CatCard({
   }, [breed.id]);
 
   return (
- <div
-  onClick={onClick}
-  className="cursor-pointer bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden flex flex-col h-[320px] transition transform hover:scale-[1.02]"
->
-  {/* IMAGE */}
-  <div className="h-48 w-full bg-gray-200 flex-shrink-0 overflow-hidden relative">
-    {image ? (
-      <img
-        src={image}
-        alt={breed.name}
-        className="h-full w-full object-cover"
-      />
-    ) : (
-      <span className="text-gray-500 text-sm absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        Anonymous 🐱
-      </span>
-    )}
-  </div>
+   <div
+      onClick={onClick}
+      className="rounded overflow-hidden shadow-lg bg-white dark:bg-gray-800 cursor-pointer transition hover:shadow-xl"
+    >
+      {/* IMAGE BLOCK */}
+      <div className="relative">
+        {/* IMAGE */}
+        <img
+          className="w-full h-48 object-cover"
+          src={image ?? ''}
+          alt={breed.name}
+        />
 
+        {/* DARK OVERLAY */}
+        <div className="absolute inset-0 bg-black opacity-20 hover:opacity-0 transition duration-300" />
 
-      {/* TEXT */}
-      <div className="p-4 flex flex-col justify-between">
-        <h3 className="font-bold text-lg truncate">{breed.name}</h3>
-        <span className="text-sm text-indigo-500 truncate">{breed.origin}</span>
+        {/* ORIGIN BADGE */}
+        <div className="absolute bottom-0 left-0 bg-indigo-600 px-4 py-2 text-white text-sm">
+          {breed.origin}
+        </div>
+      </div>
+
+      {/* CONTENT */}
+      <div className="px-6 py-4">
+        <h3 className="font-semibold text-lg hover:text-indigo-600 transition">
+          {breed.name}
+        </h3>
+        <p className="text-gray-500 text-sm mt-1 line-clamp-2">
+          {breed.description ?? 'Lovely and unique cat breed.'}
+        </p>
       </div>
     </div>
   );
