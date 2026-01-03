@@ -8,7 +8,7 @@ export default function CatCard({
   onClick,
 }: {
   breed: CatBreed;
-  onClick: () => void;
+  onClick: (image: string | null) => void;
 }) {
   const [image, setImage] = useState<string | null>(null);
 
@@ -22,33 +22,26 @@ export default function CatCard({
   }, [breed.id]);
 
   return (
-   <div
-      onClick={onClick}
+    <div
+      onClick={() => onClick(image)}
       className="rounded overflow-hidden shadow-lg bg-white dark:bg-gray-800 cursor-pointer transition hover:shadow-xl"
     >
-      {/* IMAGE BLOCK */}
       <div className="relative">
-        {/* IMAGE */}
         <img
           className="w-full h-48 object-cover"
-          src={image ?? ''}
+          src={image ?? '/placeholder-cat.jpg'}
           alt={breed.name}
         />
 
-        {/* DARK OVERLAY */}
-        <div className="absolute inset-0 bg-black opacity-20 hover:opacity-0 transition duration-300" />
+        <div className="absolute inset-0 bg-black opacity-20 hover:opacity-0 transition" />
 
-        {/* ORIGIN BADGE */}
         <div className="absolute bottom-0 left-0 bg-indigo-600 px-4 py-2 text-white text-sm">
           {breed.origin}
         </div>
       </div>
 
-      {/* CONTENT */}
       <div className="px-6 py-4">
-        <h3 className="font-semibold text-lg hover:text-indigo-600 transition">
-          {breed.name}
-        </h3>
+        <h3 className="font-semibold text-lg">{breed.name}</h3>
         <p className="text-gray-500 text-sm mt-1 line-clamp-2">
           {breed.description ?? 'Lovely and unique cat breed.'}
         </p>
